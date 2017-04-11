@@ -14,6 +14,13 @@ requestBtn.addEventListener('click', () => {
   }
 });
 
+function createError(apiLink, elementQuery) {
+  let errorMessage = document.createElement('h2');
+  errorMessage.innerHTML = `Error: Fetching Resource: ${apiLink} : NOT FOUND`;
+  errorMessage.style['background-color'] = 'red';
+  document.querySelector(elementQuery).appendChild(errorMessage);
+}
+
 function singleRequest(apiLink, elementQuery, property, deepBool, deepProperty) {
   let newRequest = new XMLHttpRequest();
   newRequest.addEventListener('load', runRequest);
@@ -61,10 +68,15 @@ function personRequest() {
   contentContainer.appendChild(nameTag);
   contentContainer.appendChild(genderTag);
   contentContainer.appendChild(speciesTag);
+  contentContainer.style.display = 'none';
 
   singleRequest(`http://swapi.co/api/people/${resourceID.value}`, '#nameTag', 'name');
   singleRequest(`http://swapi.co/api/people/${resourceID.value}`, '#genderTag', 'gender');
   singleRequest(`http://swapi.co/api/people/${resourceID.value}`, '#speciesTag', 'species', true, 'name');
+
+  setTimeout(() => {
+    contentContainer.style.display = 'block';
+  }, 2000);
 }
 
 function removeOldChilds() {
@@ -88,11 +100,16 @@ function planetRequest() {
   contentContainer.appendChild(terrainTag);
   contentContainer.appendChild(populationTag);
   contentContainer.appendChild(filmsTag);
+  contentContainer.style.display = 'none';
 
   singleRequest(`http://swapi.co/api/planets/${resourceID.value}`, '#nameTag', 'name');
   singleRequest(`http://swapi.co/api/planets/${resourceID.value}`, '#terrainTag', 'terrain');
   singleRequest(`http://swapi.co/api/planets/${resourceID.value}`, '#populationTag', 'population');
   listRequest(`http://swapi.co/api/planets/${resourceID.value}`, '#filmsTag', 'films', 'li', 'title');
+
+  setTimeout(() => {
+    contentContainer.style.display = 'block';
+  }, 2000);
 }
 
 function starshipsRequest() {
@@ -110,16 +127,14 @@ function starshipsRequest() {
   contentContainer.appendChild(manufacTag);
   contentContainer.appendChild(shipClassTag);
   contentContainer.appendChild(filmsTag);
+  contentContainer.style.display = 'none';
 
   singleRequest(`http://swapi.co/api/starships/${resourceID.value}`, '#nameTag', 'name');
   singleRequest(`http://swapi.co/api/starships/${resourceID.value}`, '#manufacTag', 'manufacturer');
   singleRequest(`http://swapi.co/api/starships/${resourceID.value}`, '#shipClassTag', 'starship_class');
   listRequest(`http://swapi.co/api/starships/${resourceID.value}`, '#filmsTag', 'films', 'li', 'title');
-}
 
-function createError(apiLink, elementQuery) {
-  let errorMessage = document.createElement('h2');
-  errorMessage.innerHTML = `Error: Fetching Resource: ${apiLink} : NOT FOUND`;
-  errorMessage.style['background-color'] = 'red';
-  document.querySelector(elementQuery).appendChild(errorMessage);
+  setTimeout(() => {
+    contentContainer.style.display = 'block';
+  }, 2000);
 }
